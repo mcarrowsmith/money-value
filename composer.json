@@ -1,0 +1,44 @@
+{
+    "name": "mcarrowsmith-packages/money-value",
+    "type": "library",
+    "require": {
+        "moneyphp/money": "^4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "McarrowsmithPackages\\MoneyValue\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "mcarrowsmith-packages/house-code-style-rules": "dev-main",
+        "phpstan/phpstan": "^1.12",
+        "phpunit/phpunit": "^11.4",
+        "rector/rector": "^1.2"
+    },
+    "scripts": {
+        "format": "bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php",
+        "style": "@format --dry-run -v",
+        "phpstan": "bin/phpstan analyse src --ansi --verbose --level=max",
+        "unit": "bin/phpunit tests",
+        "test": [
+            "@style",
+            "@phpstan",
+            "@unit"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "bin-dir": "bin",
+        "process-timeout": 0
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
