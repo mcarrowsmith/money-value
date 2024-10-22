@@ -59,5 +59,36 @@ final class MoneyValueTest extends TestCase
             'GBP',
             $money->currency()
         );
+
+        $money = MoneyValue::fromStateDecimal([
+            'amount'       => '42.36',
+            'currencyCode' => 'GBP'
+        ]);
+
+        $this->assertEquals(
+            '4236',
+            $money->amount()
+        );
+
+        $this->assertEquals(
+            'GBP',
+            $money->currency()
+        );
+    }
+
+    #[Test]
+    public function it_can_be_created_from_formatted_string(): void
+    {
+        $money = MoneyValue::fromFormattedString('£36.12');
+
+        $this->assertEquals(
+            '3612',
+            $money->amount()
+        );
+
+        $this->assertEquals(
+            'GBP',
+            $money->currency()
+        );
     }
 }

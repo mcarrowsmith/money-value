@@ -9,6 +9,8 @@ use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
+use Money\Parser\IntlMoneyParser;
+use NumberFormatter;
 
 final class MoneyValue
 {
@@ -47,6 +49,16 @@ final class MoneyValue
         return self::fromDecimal(
             $state['amount'],
             $state['currencyCode'],
+        );
+    }
+
+    public static function fromFormattedString(string $money, string $locale = 'en_GB'): self
+    {
+        return new self(
+            (new IntlMoneyParser(
+                (new NumberFormatter($locale, NumberFormatter::CURRENCY)),
+                (new ISOCurrencies)
+            ))->parse($money)
         );
     }
 
