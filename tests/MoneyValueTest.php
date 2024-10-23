@@ -91,4 +91,17 @@ final class MoneyValueTest extends TestCase
             $money->currency()
         );
     }
+
+    #[Test]
+    public function it_can_sum_amounts(): void
+    {
+        $first = MoneyValue::fromInt(1000, 'GBP');
+        $two = MoneyValue::fromInt(1000, 'GBP');
+        $three = MoneyValue::fromInt(1000, 'GBP');
+
+        $this->assertEquals(
+            3000,
+            MoneyValue::sum($first, $two, $three)->amount()
+        );
+    }
 }
