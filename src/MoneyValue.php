@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace McarrowsmithPackages\MoneyValue;
 
+use function array_map;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -59,6 +60,17 @@ final class MoneyValue
                 (new NumberFormatter($locale, NumberFormatter::CURRENCY)),
                 (new ISOCurrencies)
             ))->parse($money)
+        );
+    }
+
+    public static function sum(self $first, self ...$collection): self
+    {
+        $monies = array_map(static function (MoneyValue $money) {
+            return $money->asValue();
+        }, $collection);
+
+        return new self(
+            Money::sum($first->asValue(), ...$monies),
         );
     }
 
